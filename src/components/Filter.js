@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 
-function Filter({ onCategoryChange, onSearchChange }) {
-	const [search, setSearch] = useState("testing");
-
-	function handleChange(e) {
-		setSearch(() => e.target.value);
-		onSearchChange(search);
-	}
-
+function Filter({ onCategoryChange, onSearchChange, search }) {
 	return (
 		<div className="Filter">
 			<input
 				value={search}
 				type="text"
-				onChange={handleChange}
+				onChange={(e) => onSearchChange(e.target.value)}
 				name="search"
 				placeholder="Search..."
 			/>

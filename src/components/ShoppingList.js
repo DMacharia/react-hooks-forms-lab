@@ -7,26 +7,28 @@ import itemData from "../data/items";
 function ShoppingList() {
 	const [items, setItems] = useState(itemData);
 	const [selectedCategory, setSelectedCategory] = useState("All");
+	const [search, setSearch] = useState("");
 
 	function handleCategoryChange(event) {
 		setSelectedCategory(() => event.target.value);
 	}
+	const filterItems = items.filter((data) =>
+		data.name.toLowerCase().includes(search.toLowerCase())
+	);
 
-	const itemsToDisplay = items.filter((item) => {
+	const itemsToDisplay = filterItems.filter((item) => {
 		if (selectedCategory === "All") return true;
 
 		return item.category === selectedCategory;
 	});
 
 	function handleSearch(search) {
-		const filterItems = itemsToDisplay.filter((data) =>
-			data.name.includes(search)
-		);
-		setItems(() => filterItems);
+		setSearch(search);
 	}
 
 	function handleNewItem(newItem) {
-		setItems(() => [...itemsToDisplay, newItem]);
+		const addedItem = [...itemsToDisplay, newItem];
+		setItems(addedItem);
 	}
 
 	return (
@@ -38,7 +40,12 @@ function ShoppingList() {
 			/>
 			<ul className="Items">
 				{itemsToDisplay.map((item) => (
-					<Item key={item.id} name={item.name} category={item.category} />
+					<Item
+						key={item.id}
+						name={item.name}
+						search={search}
+						category={item.category}
+					/>
 				))}
 			</ul>
 		</div>
