@@ -9,9 +9,7 @@ function ShoppingList() {
 	const [selectedCategory, setSelectedCategory] = useState("All");
 	const [search, setSearch] = useState("");
 
-	function handleCategoryChange(event) {
-		setSelectedCategory(() => event.target.value);
-	}
+	
 	const filterItems = items.filter((data) =>
 		data.name.toLowerCase().includes(search.toLowerCase())
 	);
@@ -22,6 +20,10 @@ function ShoppingList() {
 		return item.category === selectedCategory;
 	});
 
+    function handleCategoryChange(event) {
+		setSelectedCategory(() => event.target.value);
+	}
+        
 	function handleSearch(search) {
 		setSearch(search);
 	}
